@@ -3,8 +3,8 @@ import express from "express";
 import cors from "cors";
 //import { searchBooks } from "./services/googleBooksService.js";
 import { searchBooks } from "./services/openLibraryService.js";
-import "dotenv/config";
-import { askAI } from "./services/openaiService.js";
+import { askAI, buildBookPrompt } from "./services/openaiService.js";
+import { runBookRecommendationWorkflow } from "./agents/bookRecommendationWorkflow.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
@@ -22,7 +22,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-app.post("/api/recommendations", async (req, res) => {
+/*app.post("/api/recommendations", async (req, res) => {
   try {
     const { query } = req.body;
 
@@ -40,23 +40,22 @@ app.post("/api/recommendations", async (req, res) => {
       details: error instanceof Error ? error.message : String(error),
     });
   }
-});
+});*/
 
-app.post("/api/test-ai", async (req, res) => {
+app.post("/api/recommendations", async (req, res) => {
   try {
     const { query } = req.body;
 
-    const result = await askAI(query);
+    const result = await runBookRecommendationWorkflow(query);
 
     res.json({
-      result,
+      recommendations: result,
     });
   } catch (error) {
-    console.error("OPENROUTER ERROR:", error);
+    console.error(error);
 
     res.status(500).json({
-      error: "AI request failed",
-      details: error instanceof Error ? error.message : String(error),
+      error: "Failed to generate recommendations",
     });
   }
 });
