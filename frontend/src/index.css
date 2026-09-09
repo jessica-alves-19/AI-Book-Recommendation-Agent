@@ -11,8 +11,8 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -108,4 +108,235 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+.recommendation-card {
+  display: flex;
+  gap: 16px;
+
+  width: 100%;
+  max-width: 450px;
+
+  margin: 0 auto 20px;
+  padding: 14px;
+  justify-content: center;
+
+  background: #0b192d;
+  border: 1px solid #214263;
+  border-radius: 18px;
+
+  box-sizing: border-box;
+}
+
+.recommendation-card__cover {
+  width: 100px;
+  min-width: 100px;
+  height: 150px;
+
+  border-radius: 10px;
+  overflow: hidden;
+  background: #050b13;
+}
+
+.recommendation-card__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recommendation-card__no-cover {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.recommendation-card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  text-align: left;
+}
+
+.recommendation-card__content h2 {
+  margin: 0 0 4px;
+
+  color: #f8fafc;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.recommendation-card__author {
+  margin-bottom: 12px;
+
+  color: #a9b8cc;
+}
+
+.recommendation-card__tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.recommendation-card__tags span {
+  padding: 5px 12px;
+
+  background: #18304f;
+  color: #e2e8f0;
+
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.recommendation-card__tags span:first-child {
+  color: white;
+}
+
+.recommendation-card__info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.recommendation-card__info-box {
+  min-height: 72px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #1c3150;
+  border-radius: 12px;
+
+  text-align: center;
+}
+
+.recommendation-card__info-box span {
+  color: #b7c2d0;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.recommendation-card__info-box strong {
+  margin-top: 4px;
+
+  color: #f8fafc;
+  font-size: 16px;
+}
+
+@media (max-width: 650px) {
+  .recommendation-card {
+    flex-direction: column;
+  }
+
+  .recommendation-card__cover {
+    width: 100%;
+    height: 260px;
+  }
+
+  .recommendation-card__info {
+    grid-template-columns: 1fr;
+  }
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 640px;
+  height: 62px;
+
+  margin: 0 auto 32px;
+
+  display: flex;
+  align-items: center;
+
+  background: #0b192d;
+  border: 2px solid #29466d;
+  border-radius: 18px;
+
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.search-bar__input {
+  flex: 1;
+  height: 100%;
+
+  padding: 0 24px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+  color: #f8fafc;
+
+  font-size: 18px;
+}
+
+.search-bar__input::placeholder {
+  color: #7183a0;
+}
+
+.search-bar__button {
+  width: 64px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+
+  color: #7183a0;
+
+  cursor: pointer;
+}
+
+.search-bar__button:hover {
+  color: #a7b6cc;
+}
+
+body {
+  background: #121016;
+  color: #f8f5fb;
+}
+
+.search-bar {
+  background: #1d1824;
+  border-color: #4b3b5d;
+}
+
+.search-bar__button {
+  color: #b794f6;
+}
+
+.recommendation-card {
+  background: #1d1824;
+  border-color: #4b3b5d;
+}
+
+.recommendation-card__content h2 {
+  color: #f8f5fb;
+}
+
+.recommendation-card__author {
+  color: #b9adbf;
+}
+
+.recommendation-card__info-box {
+  background: #292133;
+}
+
+.recommendation-card__info-box span {
+  color: #b9adbf;
+}
+
+.recommendation-card__info-box strong {
+  color: #f8f5fb;
 }

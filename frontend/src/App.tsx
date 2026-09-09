@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useBookRecommendations } from "./hooks/useBookRecommendations";
 import { BookCard } from "./components/bookCard";
+import { SearchBar } from "./components/searchBar";
 import type { Book } from "./types/book";
 
 function App() {
@@ -20,38 +21,42 @@ function App() {
   }
 
   return (
-    <main>
-      <h1>AI Book Recommendation Agent</h1>
+    <main className="min-h-screen bg-[#08090d] text-white">
+      <div className="mx-auto w-full max-w-5xl px-6 py-10">
+        <h1 className="mb-10 text-center text-3xl font-bold">
+          AI Book Recommendation Agent
+        </h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="What kind of book are you looking for?"
+        <SearchBar
+          query={query}
+          onQueryChange={setQuery}
+          onSubmit={handleSubmit}
+          loading={loading}
         />
 
-        <button type="submit">Recommend books</button>
-      </form>
+        {loading && (
+          <p className="mt-8 text-center">
+            🤖 Finding the best books for you...
+          </p>
+        )}
 
-      {loading && (
-        <div>
-          <p>🤖 AI is finding the best books for you...</p>
-        </div>
-      )}
+        {error && <p className="mt-8 text-center text-red-400">{error}</p>}
 
-      {error && <p>{error}</p>}
-
-      <div>
-        {recommendations.map((book: Book) => (
-          <BookCard
-            key={book.id}
-            title={book.title}
-            authors={book.authors}
-            publishedDate={book.publishedDate}
-            description={book.description}
-            thumbnail={book.thumbnail}
-          />
-        ))}
+        {recommendations.length > 0 && (
+          <section className="mt-12">
+            <div className="space-y-5">
+              {recommendations.map((book: Book) => (
+                <BookCard
+                  key={book.id}
+                  title={book.title}
+                  authors={book.authors}
+                  publishedDate={book.publishedDate}
+                  thumbnail={book.thumbnail}
+                />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );
