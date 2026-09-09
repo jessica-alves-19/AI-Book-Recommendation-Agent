@@ -19,7 +19,12 @@ maximumPages,
 language.
 `);
 
-  const preferencesData = JSON.parse(preferencesResponse);
+  const cleanedPreferencesResponse = preferencesResponse
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+
+  const preferencesData = JSON.parse(cleanedPreferencesResponse);
 
   const result = bookPreferencesSchema.safeParse(preferencesData);
 
@@ -30,15 +35,11 @@ language.
   const preferences = result.data;
 
   // Step 2: Search
-  const searchQuery = [
-    preferences.genre,
-    preferences.author,
-    preferences.similarBook,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const searchQuery = preferences.genre ?? "";
 
   const books = await searchBooks(searchQuery);
+  console.log("SEARCH QUERY:", searchQuery);
+  console.log("BOOKS FOUND:", books);
 
   const filteredBooks = books.filter((book) => {
     if (!preferences.minimumPublicationYear) {
@@ -55,23 +56,40 @@ language.
   });
 
   // Step 3: Rank
-  const rankedBooks = await askAI(`
-User request:
+    const rankedBooksResponse = await askAI(`
+You are a book recommendation assistant.
 
+User request:
 ${userQuery}
 
 User preferences:
-
 ${JSON.stringify(preferences)}
 
 Available books:
-
 ${JSON.stringify(filteredBooks)}
 
-Choose the best recommendations.
+Choose the best books from the available books.
 
-Explain your reasoning.
+Return ONLY a valid JSON array containing the IDs of the recommended books.
+
+Example:
+["/works/OL123W", "/works/OL456W"]
+
+Only use IDs that exist in the Available books list.
+Do not include explanations.
+Do not include markdown.
 `);
 
-  return rankedBooks;
+  console.log("AI RANKING RESPONSE:", rankedBooksResponse);
+
+  const recommendedIds = JSON.parse(rankedBooksResponse);
+  console.log("RECOMMENDED IDS:", recommendedIds);
+  console.log("FILTERED BOOKS:", filteredBooks);
+
+  const recommendations = filteredBooks.filter((book) =>
+    recommendedIds.includes(book.id),
+  );
+  console.log("FINAL RECOMMENDATIONS:", recommendations);
+
+  return recommendations;
 }

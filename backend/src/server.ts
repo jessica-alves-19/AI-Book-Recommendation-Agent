@@ -1,9 +1,6 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-//import { searchBooks } from "./services/googleBooksService.js";
-import { searchBooks } from "./services/openLibraryService.js";
-import { askAI, buildBookPrompt } from "./services/openaiService.js";
 import { runBookRecommendationWorkflow } from "./agents/bookRecommendationWorkflow.js";
 
 const app = express();
@@ -22,26 +19,6 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-/*app.post("/api/recommendations", async (req, res) => {
-  try {
-    const { query } = req.body;
-
-    const books = await searchBooks(query);
-
-    res.json({
-      query,
-      books,
-    });
-  } catch (error) {
-    console.error("GOOGLE BOOKS ERROR:", error);
-
-    res.status(500).json({
-      error: "Failed to search books",
-      details: error instanceof Error ? error.message : String(error),
-    });
-  }
-});*/
-
 app.post("/api/recommendations", async (req, res) => {
   try {
     const { query } = req.body;
@@ -53,9 +30,9 @@ app.post("/api/recommendations", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       error: "Failed to generate recommendations",
+      details: error instanceof Error ? error.message : String(error),
     });
   }
 });
