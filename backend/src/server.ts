@@ -20,7 +20,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-/*app.post("/api/recommendations", async (req, res) => {
+app.post("/api/recommendations", async (req, res) => {
   try {
     const { query } = req.body;
 
@@ -36,9 +36,11 @@ app.listen(port, () => {
       details: error instanceof Error ? error.message : String(error),
     });
   }
-});*/
+});
 
-app.post("/api/recommendations", async (req, res) => {
+//Mocks if necessary
+
+/*app.post("/api/recommendations", async (req, res) => {
   try {
     const { query } = req.body;
 
@@ -65,4 +67,4 @@ app.post("/api/recommendations", async (req, res) => {
       details: error instanceof Error ? error.message : String(error),
     });
   }
-});
+});*/
