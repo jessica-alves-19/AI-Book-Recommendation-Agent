@@ -445,11 +445,11 @@ Possible future improvements include:
 
 ### 🏠 Home
 
-![AI Book Recommendation Agent Home](./public/screenshots/home.png)
+![AI Book Recommendation Agent Home](./public/screenshots/home.PNG)
 
 ### 📚 Recommendations
 
-![AI Book Recommendations](./public/screenshots/recommendations.png)
+![AI Book Recommendations](./public/screenshots/recommendations.PNG)
 
 ## 👩‍💻 Author
 
